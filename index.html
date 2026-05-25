@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John's Tech House | Premium Artisan Electronics</title>
+    
+    <!-- Google Fonts for the special Moto Quote at the end -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            500: '#f59e0b', /* Cyber Amber */
+                            600: '#d97706',
+                        },
+                        darkbg: '#090d16',
+                        darkcard: '#111827',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-darkbg dark:text-slate-100 font-sans transition-colors duration-300 antialiased min-h-screen flex flex-col">
+
+    <!-- ─── HEADER / NAVIGATION ─── -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800/80 dark:bg-darkbg/80">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 select-none">
+                <i data-lucide="cpu" class="h-6 w-6 text-brand-500"></i>
+                <span class="text-xl font-bold tracking-tight">John's <span class="text-brand-500">Tech House</span></span>
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#" class="text-brand-500 transition-colors">Home Store</a>
+                <a href="#?category=all" class="hover:text-brand-500 transition-colors">Shop All</a>
+                <a href="#?category=keyboards" class="hover:text-brand-500 transition-colors">Keyboards</a>
+                <a href="#?category=macropads" class="hover:text-brand-500 transition-colors">Macro Pads</a>
+                <a href="#?category=smarthome" class="hover:text-brand-500 transition-colors">Smart Home</a>
+            </nav>
+
+            <!-- Utilities -->
+            <div class="flex items-center gap-4">
+                <!-- Theme Toggle Switch -->
+                <button id="theme-btn" class="rounded-lg p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors" title="Toggle Light/Dark Mode">
+                    <i data-lucide="sun" class="hidden dark:block h-5 w-5 text-brand-500"></i>
+                    <i data-lucide="moon" class="block dark:hidden h-5 w-5 text-slate-600"></i>
+                </button>
+
+                <!-- Shopping Bag -->
+                <button id="cart-open-btn" class="relative rounded-lg p-2 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors">
+                    <i data-lucide="shopping-bag" class="h-5 w-5"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-500 text-[10px] font-bold text-white">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ─── VIEW CONTAINER ─── -->
+    <div class="flex-grow">
+        
+        <!-- 🏠 VIEW 1: STORE FRONT HOME PAGE -->
+        <main id="view-home" class="view-section active mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <!-- Hero -->
+            <section class="py-16 lg:py-24 flex flex-col items-center text-center">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-brand-50 dark:bg-amber-950/40 px-3 py-1 text-sm font-medium text-brand-600 dark:text-brand-500 ring-1 ring-brand-500/20 mb-6">
+                    <i data-lucide="sparkles" class="h-3.5 w-3.5"></i> Custom Production Run Open
+                </span>
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl max-w-3xl">
+                    Handcrafted Electronics for the <span class="bg-gradient-to-r from-brand-500 to-amber-500 bg-clip-text text-transparent">Modern Maker</span>
+                </h1>
+                <p class="mt-6 text-lg max-w-2xl text-slate-600 dark:text-slate-400">
+                    Engineered, soldered, and coded by hand. Premium raw materials mixed with powerful open-source control.
+                </p>
+            </section>
+
+            <!-- Category Fast Filter Pills -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="setCategoryFilter('all')" class="cat-pill active px-4 py-2 text-sm font-medium rounded-full bg-slate-900 text-white dark:bg-slate-800">All Masterworks</button>
+                <button onclick="setCategoryFilter('keyboards')" class="cat-pill px-4 py-2 text-sm font-medium rounded-full bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">Keyboards</button>
+                <button onclick="setCategoryFilter('macropads')" class="cat-pill px-4 py-2 text-sm font-medium rounded-full bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">Macro Pads</button>
+                <button onclick="setCategoryFilter('smarthome')" class="cat-pill px-4 py-2 text-sm font-medium rounded-full bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">Smart Home</button>
+            </div>
+
+            <!-- Dynamic Storefront Grid -->
+            <section class="py-6 mb-20">
+                <div id="product-grid" class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                    <!-- Cards loop dynamically -->
+                </div>
+            </section>
+
+            <!-- Premium Manifesto / Quote Block (Only visible on Home Page) -->
+            <section class="py-24 border-t border-slate-200 dark:border-slate-800/80 text-center">
+                <p class="text-xs font-semibold tracking-[0.3em] uppercase text-brand-500 mb-4">The Maker's Creed</p>
+                <h2 class="font-cinzel text-2xl sm:text-4xl md:text-5xl max-w-4xl mx-auto leading-relaxed text-slate-800 dark:text-slate-200 italic font-medium">
+                    "In an era of disposable mass manufacturing, true luxury lies in the machines built by hand, refined by code, and made to outlive us."
+                </h2>
+                <div class="mt-6 flex justify-center items-center gap-2 text-slate-400 dark:text-slate-600">
+                    <div class="h-[1px] w-12 bg-slate-300 dark:bg-slate-700"></div>
+                    <span class="text-xs uppercase tracking-widest font-mono">John - Workshop #01</span>
+                    <div class="h-[1px] w-12 bg-slate-300 dark:bg-slate-700"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 🔍 VIEW 2: PRODUCT DETAIL PAGE COMPONENT -->
+        <main id="view-product-detail" class="view-section mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <button onclick="window.location.hash = ''" class="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-brand-500 mb-8 transition-colors">
+                <i data-lucide="arrow-left" class="h-4 w-4"></i> Back to Storefront
+            </button>
+
+            <!-- Product Showcase Shell -->
+            <div id="detail-shell" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <!-- Javascript builds out elements inside here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- ─── SHOPPING CART SIDEBAR DRAWER ─── -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none invisible" role="dialog" aria-modal="true">
+        <div id="cart-backdrop" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
+        <div class="absolute inset-y-0 right-0 pl-10 max-w-full flex pointer-events-auto">
+            <div id="cart-panel" class="w-screen max-w-md bg-white dark:bg-darkcard transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+                
+                <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-lg font-bold">Your Workshop Order</h2>
+                        <button onclick="toggleCart(false)" class="text-slate-400 hover:text-slate-500"><i data-lucide="x" class="h-6 w-6"></i></button>
+                    </div>
+                    <div class="mt-8">
+                        <ul id="cart-items-list" class="-my-6 divide-y divide-slate-200 dark:divide-slate-800"></ul>
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-200 dark:border-slate-800 py-6 px-4 sm:px-6 bg-slate-50 dark:bg-slate-900/40">
+                    <div class="flex justify-between text-base font-medium">
+                        <p>Subtotal</p>
+                        <p id="cart-subtotal">$0.00</p>
+                    </div>
+                    <div class="mt-6 flex flex-col gap-3">
+                        <button onclick="triggerCheckout()" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg shadow-sm transition-colors text-center">
+                            Secure Checkout
+                        </button>
+                        <button onclick="toggleCart(false)" class="text-sm text-center font-medium text-slate-500 hover:text-slate-600 dark:hover:text-slate-400">Continue Shopping</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-darkbg py-8">
+        <div class="mx-auto max-w-7xl px-4 md:flex md:items-center md:justify-between sm:px-6 lg:px-8">
+            <p class="text-center text-xs text-slate-400">&copy; 2026 John's Tech House. Handcoded for Front-End Portfolio Execution.</p>
+            <div class="mt-4 md:mt-0 flex justify-center space-x-6 text-slate-400">
+                <i data-lucide="terminal" class="h-4 w-4"></i><span class="text-xs">HTML5 / Tailwind CSS / Vanilla JS Router</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ─── CORE FRONT-END APPLICATION ENGINE ─── -->
+    <script>
+        // 🛍️ Expanded Mock Dataset
+        const PRODUCTS = [
+            { id: 1, name: "The CyberDeck Pad v2", price: 89.00, category: "macropads", tag: "Best Seller", img: "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=800&q=80", desc: "A customizable macro-pad CNC machined out of industrial aircraft-grade aluminum. Hot-swap sockets ready for mechanical switches, programmed completely with VIA configuration layers.", specs: ["6 Programmable Macro Keys", "Clicky Premium Rotary Encoder", "USB-C Interface", "RGB Underglow Array"], reviews: [{user:"Dev_Kev", rating:5, comment:"Solder work is insanely clean. Response rate is fantastic."}, {user:"Sarah.t", rating:5, comment:"Beautiful product on my desk."}] },
+            { id: 2, name: "AmberGlow Smart Node", price: 45.00, category: "smarthome", tag: "New Release", img: "https://plus.unsplash.com/premium_photo-1661904010103-326ba87f7df4?q=80&w=388&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", desc: "An ambient environmental automated monitor running custom ESPHome stack firmware. Measures temperature, humidity, and micro-particles with gorgeous amber glow reactive status lights.", specs: ["ESP32-Powered Chipset", "SHT31 Temperature Sensor", "Home Assistant Auto-Discovery", "Real Walnut wood paneling"], reviews: [{user:"SmartHomeGuy", rating:4, comment:"Integrates instantly with my Home Assistant layout."}] },
+            { id: 3, name: "Walnut Mechanical 65%", price: 210.00, category: "keyboards", tag: "Limited Run", img: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=800&q=80", desc: "A premium 65-key structural masterpiece. Each chassis is carved out of a single continuous piece of American Walnut oil-rubbed by hand. Gasket mounted setup gives it a deep signature sound profile.", specs: ["Genuine American Walnut Chassis", "Lubed Gateron Oil King Switches", "Custom PBT Double-shot Keycaps", "Poron Case Foams Included"], reviews: [{user:"KeebKing", rating:5, comment:"The sound profile is unbelievable out of the box."}] },
+            { id: 4, name: "Split-Hand Ergonomic Ergo01", price: 245.00, category: "keyboards", tag: "Ergo Premium", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80", desc: "An aggressive split-hand ergonomic workspace device engineered to save wrists from stress. Features custom embedded OLED metric displays per half and integrated tenting support structures.", specs: ["Dual High-Res OLED Displays", "Tenting angle up to 15 degrees", "Fully customizable layout matrices", "Hot-swap Switchable Sockets"], reviews: [] },
+            { id: 5, name: "MatrixDesk Lux Controller", price: 65.00, category: "smarthome", tag: "Essential", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80", desc: "Desktop system designed to control studio monitor relays, desk lighting arrays, and sound balances with weighted tactical toggles and mechanical micro-switches.", specs: ["3 Physical Toggle Rails", "Heavy Machined Baseplate", "Open-Source Custom API Control", "Braided Cord Assembly Included"], reviews: [{user:"T_Studio", rating:5, comment:"Makes shifting camera inputs during streaming seamless."}] }
+        ];
+
+        let cart = [];
+        let activeCategory = 'all';
+
+        // 🌗 Native Dark Mode Toggling
+        document.getElementById('theme-btn').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // 🗺️ SPA Router State Configuration
+        window.addEventListener('hashchange', router);
+        window.addEventListener('DOMContentLoaded', () => {
+            router();
+            updateCartUI();
+        });
+
+        function router() {
+            const hash = window.location.hash || '';
+            const homeView = document.getElementById('view-home');
+            const detailView = document.getElementById('view-product-detail');
+
+            // Deconstruct Route Parameters
+            if (hash.startsWith('#product-')) {
+                const id = parseInt(hash.replace('#product-', ''));
+                homeView.classList.remove('active');
+                detailView.classList.add('active');
+                renderProductDetailView(id);
+                window.scrollTo(0,0);
+            } else {
+                detailView.classList.remove('active');
+                homeView.classList.add('active');
+                
+                // Read filter parameters out of hash if navigation sets them
+                if (hash.startsWith('#?category=')) {
+                    activeCategory = hash.replace('#?category=', '');
+                } else {
+                    activeCategory = 'all';
+                }
+                updatePillUI();
+                renderStorefront();
+            }
+        }
+
+        // ⚡ Storefront Grid Painting Logic
+        function renderStorefront() {
+            const grid = document.getElementById('product-grid');
+            const filtered = activeCategory === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === activeCategory);
+
+            grid.innerHTML = filtered.map(prod => `
+                <div class="group relative flex flex-col bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="aspect-square w-full overflow-hidden bg-slate-100 dark:bg-slate-900 relative">
+                        <img src="${prod.img}" alt="${prod.name}" class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105 cursor-pointer" onclick="window.location.hash = '#product-${prod.id}'">
+                        ${prod.tag ? `<span class="absolute top-3 left-3 bg-slate-950/80 dark:bg-brand-500 text-white text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded">${prod.tag}</span>` : ''}
+                    </div>
+                    <div class="flex flex-1 flex-col p-5">
+                        <span class="text-[11px] font-bold text-brand-500 uppercase tracking-widest">${prod.category}</span>
+                        <h3 class="mt-1 font-bold text-lg text-slate-900 dark:text-white hover:text-brand-500 cursor-pointer transition-colors" onclick="window.location.hash = '#product-${prod.id}'">${prod.name}</h3>
+                        <p class="mt-1 text-base font-semibold text-slate-700 dark:text-slate-300">$${prod.price.toFixed(2)}</p>
+                        <div class="mt-4 grid grid-cols-2 gap-2">
+                            <button onclick="window.location.hash = '#product-${prod.id}'" class="border border-slate-200 dark:border-slate-700 hover:border-brand-500 text-xs font-medium py-2 rounded-lg transition-colors">Details</button>
+                            <button onclick="addToCart(${prod.id})" class="bg-slate-900 dark:bg-slate-800 hover:bg-brand-500 dark:hover:bg-brand-500 text-white text-xs font-medium py-2 rounded-lg transition-colors flex items-center justify-center gap-1">
+                                <i data-lucide="plus" class="h-3.5 w-3.5"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function setCategoryFilter(cat) {
+            window.location.hash = cat === 'all' ? '' : `#?category=${cat}`;
+        }
+
+        function updatePillUI() {
+            document.querySelectorAll('.cat-pill').forEach(pill => {
+                const target = pill.getAttribute('onclick').match(/'([^']+)'/)[1];
+                if (target === activeCategory) {
+                    pill.className = "cat-pill active px-4 py-2 text-sm font-medium rounded-full bg-slate-900 text-white dark:bg-slate-800 shadow-sm";
+                } else {
+                    pill.className = "cat-pill px-4 py-2 text-sm font-medium rounded-full bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-400";
+                }
+            });
+        }
+
+        // 🔬 Dynamic Product Template Generation Engine
+        function renderProductDetailView(id) {
+            const product = PRODUCTS.find(p => p.id === id);
+            const shell = document.getElementById('detail-shell');
+            if(!product) {
+                shell.innerHTML = `<p class="text-center col-span-2 text-slate-400">Masterwork missing from internal arrays.</p>`;
+                return;
+            }
+
+            document.title = `${product.name} | John's Tech House`;
+
+            shell.innerHTML = `
+                <!-- Media Panel -->
+                <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 aspect-square max-h-[550px]">
+                    <img src="${product.img}" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Procurement Interface Panel -->
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-brand-500 tracking-widest uppercase">${product.category}</span>
+                        <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl mt-1">${product.name}</h1>
+                        <p class="text-2xl font-bold text-slate-800 dark:text-slate-200 mt-2">$${product.price.toFixed(2)}</p>
+                        
+                        <div class="mt-6 border-t border-slate-200 dark:border-slate-800/80 pt-6">
+                            <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Overview</h3>
+                            <p class="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed text-sm">${product.desc}</p>
+                        </div>
+
+                        <div class="mt-6">
+                            <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Specifications</h3>
+                            <ul class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                                ${product.specs.map(spec => `<li class="flex items-center gap-2 text-slate-500"><span class="h-1 w-1 rounded-full bg-brand-500"></span>${spec}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Buy Module Elements -->
+                    <div class="mt-8 border-t border-slate-200 dark:border-slate-800 pt-6">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="addToCart(${product.id})" class="flex-1 py-3 px-6 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-brand-500 text-white font-medium rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2">
+                                <i data-lucide="shopping-cart" class="h-4 w-4"></i> Add to Workshop Cart
+                            </button>
+                            <button onclick="instantBuy(${product.id})" class="flex-1 py-3 px-6 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-lg shadow-sm transition-colors text-center">
+                                Buy Directly Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Community Review Modules -->
+                <div class="col-span-1 lg:col-span-2 border-t border-slate-200 dark:border-slate-800 pt-10 mt-6">
+                    <h2 class="text-xl font-bold tracking-tight mb-6">Customer Reviews & Deployment Status</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        <!-- Review Thread Feed -->
+                        <div class="space-y-4" id="review-feed-box">
+                            ${product.reviews.length === 0 ? `<p class="text-sm text-slate-400 italic">No feedback entries deployed yet for this run.</p>` : 
+                              product.reviews.map(rev => `
+                                <div class="p-4 rounded-xl bg-white dark:bg-darkcard border border-slate-150 dark:border-slate-800/80 shadow-sm text-sm">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-bold text-slate-700 dark:text-slate-300">@${rev.user}</span>
+                                        <div class="flex text-brand-500 gap-0.5">${'★'.repeat(rev.rating)}${'☆'.repeat(5-rev.rating)}</div>
+                                    </div>
+                                    <p class="text-slate-600 dark:text-slate-400">${rev.comment}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Critique Submissions Form Box -->
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-darkcard/40">
+                            <h3 class="text-sm font-bold tracking-wider uppercase mb-3">Add Feedback Packet</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <input id="form-username" type="text" placeholder="Handle (e.g., tech_nomad)" class="w-full text-sm p-2 rounded bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-500">
+                                </div>
+                                <div>
+                                    <select id="form-rating" class="w-full text-sm p-2 rounded bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-500">
+                                        <option value="5">5 Stars (Flawless Execution)</option>
+                                        <option value="4">4 Stars (Great Node)</option>
+                                        <option value="3">3 Stars (Standard Build)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <textarea id="form-comment" rows="3" placeholder="Write feedback details..." class="w-full text-sm p-2 rounded bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-500"></textarea>
+                                </div>
+                                <button onclick="submitReview(${product.id})" class="w-full py-2 bg-slate-900 text-white dark:bg-slate-800 hover:bg-brand-500 dark:hover:bg-brand-500 transition-colors text-xs font-semibold uppercase tracking-wider rounded">
+                                    Deploy Feedback
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // 🗳️ Form Submission Subroutine simulation
+        window.submitReview = function(id) {
+            const userIn = document.getElementById('form-username').value.trim();
+            const ratingIn = parseInt(document.getElementById('form-rating').value);
+            const commentIn = document.getElementById('form-comment').value.trim();
+
+            if (!userIn || !commentIn) {
+                alert("Please complete validation requirements by filling both Handle and Comment spaces.");
+                return;
+            }
+
+            const product = PRODUCTS.find(p => p.id === id);
+            if(product) {
+                product.reviews.push({ user: userIn, rating: ratingIn, comment: commentIn });
+                renderProductDetailView(id); // Hot-reload view module instantly
+            }
+        }
+
+        // 🛒 Global State Operations Engine
+        function toggleCart(isOpen) {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+            if(isOpen) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => {
+                    backdrop.classList.replace('opacity-0', 'opacity-100');
+                    panel.classList.replace('translate-x-full', 'translate-x-0');
+                }, 10);
+            } else {
+                backdrop.classList.replace('opacity-100', 'opacity-0');
+                panel.classList.replace('translate-x-0', 'translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
+
+        window.addToCart = function(id) {
+            const item = PRODUCTS.find(p => p.id === id);
+            const entry = cart.find(c => c.id === id);
+            if(entry) { entry.quantity++; } else { cart.push({...item, quantity:1}); }
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        window.instantBuy = function(id) {
+            const item = PRODUCTS.find(p => p.id === id);
+            cart = [{...item, quantity: 1}];
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        window.removeFromCart = function(id) {
+            cart = cart.filter(c => c.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+            document.getElementById('cart-count').innerText = totalCount;
+
+            const list = document.getElementById('cart-items-list');
+            if(cart.length === 0) {
+                list.innerHTML = `<div class="text-center py-16 text-slate-400"><i data-lucide="shopping-cart" class="mx-auto h-10 w-10 stroke-1 mb-2"></i>Cart holds no active allocations.</div>`;
+            } else {
+                list.innerHTML = cart.map(item => `
+                    <li class="flex py-6 text-sm">
+                        <div class="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-slate-200 dark:border-slate-800 bg-slate-50">
+                            <img src="${item.img}" class="h-full w-full object-cover">
+                        </div>
+                        <div class="ml-4 flex flex-1 flex-col justify-between">
+                            <div class="flex justify-between font-medium">
+                                <h4>${item.name}</h4>
+                                <p class="ml-4">$${(item.price * item.quantity).toFixed(2)}</p>
+                            </div>
+                            <div class="flex items-end justify-between text-xs">
+                                <p class="text-slate-400">Qty ${item.quantity}</p>
+                                <button onclick="removeFromCart(${item.id})" class="text-red-500 font-medium hover:text-red-400">Purge</button>
+                            </div>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+            document.getElementById('cart-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+            lucide.createIcons();
+        }
+
+        window.triggerCheckout = function() {
+            if(cart.length === 0) {
+                alert("Allocation array empty. Add items to order stack before processing checkout arrays.");
+                return;
+            }
+            alert("🔒 Secure Front-End Sandbox Link Initiated!\n\nThis checkout action routes correctly to any simulated payment grid matrix processing array.");
+        }
+
+        document.getElementById('cart-open-btn').addEventListener('click', () => toggleCart(true));
+        document.getElementById('cart-backdrop').addEventListener('click', () => toggleCart(false));
+    </script>
+</body>
+</html>
