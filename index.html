@@ -307,7 +307,7 @@ async function sendMessage() {
             parts: [{ text: m.content }]
         }));
 
-       const res = await fetch(BACKEND_PROXY_URL, {
+      const res = await fetch(BACKEND_PROXY_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -316,14 +316,17 @@ async function sendMessage() {
     })
 });
 
+const data = await res.json();
 
-        const data = await res.json();
-        if (data.error) throw new Error(data.error.message || 'Gemini API error');
+// If Vercel or Gemini throws an error, handle it here safely
+if (data.error) throw new Error(data.error);
 
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't process that — try rephrasing!";
-        chatHistory.push({ role:'assistant', content:reply });
-        hideTyping();
-        appendMessage('bot', fmtReply(reply));
+// Read the clean 'text' variable returned by your Vercel backend
+const reply = data.text || "Sorry, I couldn't process that — try rephrasing!";
+
+chatHistory.push({ role: 'assistant', content: reply });
+hideTyping();
+appendMessage('bot', fmtReply(reply));
 
     } catch(err) {
         hideTyping();
